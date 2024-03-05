@@ -2,14 +2,14 @@ pipeline {
     environment {
         dockerimagename = "abhibhardwaj4907/nodeapp"
         dockerImage = ""
-        registryCredentials = "dockerhub-creds"
+        registryCredentials = "dockerhub-cred"
     }
     agent any
 
     stages {
         stage("Checkout Git") {
             steps {
-                git "https://github.com/arytmw/nodeapp_test.git"
+                checkout scm
             }
         }
         stage("Build Image") {
@@ -31,7 +31,7 @@ pipeline {
         stage("Deploy to Kubernetes") {
             steps {
              withKubeConfig([credentialsId: 'networknuts-k8s', serverUrl: 'https://networknutsk8s-dns-kvp2667g.hcp.centralindia.azmk8s.io']) {
-                sh "kubectl apply -f deploymentservice.yml"
+                sh "kubectl apply -f deploymentservice.yml
              }
             }
         }
