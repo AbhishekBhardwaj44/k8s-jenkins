@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("", registryCredentials) {
-                        dockerImage.push("latest")
+                        dockerImage.push("v1")
                     }
                 }
             }
